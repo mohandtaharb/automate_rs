@@ -11,7 +11,8 @@ fn main() -> io::Result<()> {
         ((State::Zeros, '0'), State::Zeros),
         ((State::Zeros, 'b'), State::FirstB),
         ((State::FirstB, 'b'), State::SecondB),
-        ((State::SecondB, '1'), State::Ones),
+        ((State::SecondB, '1'), State::FirstOne),
+        ((State::FirstOne, '1'), State::Ones),
         ((State::Ones, '1'), State::Ones)
     ]);
 
