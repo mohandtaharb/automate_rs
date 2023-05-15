@@ -2,7 +2,7 @@ pub mod automaton;
 
 use std::{
     collections::{HashSet, HashMap},
-    io
+    io::{self, Write}
 };
 use automaton::*;
 
@@ -14,7 +14,7 @@ fn main() -> io::Result<()> {
         ((State::SecondB, '1'), State::FirstOne),
         ((State::FirstOne, '1'), State::Ones),
         ((State::Ones, '1'), State::Ones)
-    ]);
+        ]);
 
     let fstates = HashSet::from([State::Ones]);
 
@@ -23,6 +23,8 @@ fn main() -> io::Result<()> {
     let mut automate = Automaton::create(init_state, fstates, transition_fn);
 
     let mut word = String::new();
+    print!("Entrez un mot : ");
+    io::stdout().flush().unwrap();
     io::stdin().read_line(&mut word)?;
     /* On supprime les espaces et retours à la ligne pour ne pas avoir de problème */
     word = word.trim().to_string(); 
