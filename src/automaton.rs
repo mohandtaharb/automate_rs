@@ -8,21 +8,21 @@
 //! - S réprésente la fonction de transition sur Q × X -> Q
 
 use std::{
-    collections::{HashMap, HashSet},
-    process::exit,
+    collections::{HashMap, HashSet}
 };
 
 #[derive(Debug, Copy, Clone, Hash, PartialEq, Eq)]
 pub enum State {
-    Zeros,
-    FirstB,
-    SecondB,
-    FirstOne,
-    Ones,
+    S,
+    A,
+    B,
+    C,
+    D,
 }
 
 #[derive(Debug)]
 pub struct Automaton {
+    init_state: State,
     current_state: State,
     fstates: HashSet<State>,
     transition_fn: HashMap<(State, char), State>,
@@ -35,6 +35,7 @@ impl Automaton {
         transition_fn: HashMap<(State, char), State>,
     ) -> Automaton {
         Automaton {
+            init_state,
             current_state: init_state,
             fstates,
             transition_fn,
@@ -45,18 +46,24 @@ impl Automaton {
         self.transition_fn.get(&(self.current_state, c))
     }
 
-    fn switch_state(&mut self, c: char) {
+    fn switch_state(&mut self, c: char) -> Result<(), ()> {
         let next_state = self.get_next_state(c);
         if let None = next_state {
-            println!("Le mot n'appartient pas au langage");
-            exit(-1);
+            return Err(());
         }
         self.current_state = next_state.unwrap().to_owned();
+        Ok(())
     }
 
     pub fn validate(&mut self, word: &String) -> bool {
-        word.chars().for_each(|c| self.switch_state(c));
-
+        for c in word.chars() {
+            if let Err(_) = self.switch_state(c) {
+                return false;
+            }
+        }
         self.fstates.contains(&self.current_state)
+    }
+    pub fn reset(&mut self) {
+        self.current_state = self.init_state;
     }
 }
