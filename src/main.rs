@@ -34,6 +34,7 @@ fn main() -> io::Result<()> {
         } else {
             println!("Le mot n'appartient pas au langage");
         }
+        automate.reset();
         word.clear();
     }
     Ok(())
