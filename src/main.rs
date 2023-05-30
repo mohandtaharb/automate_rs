@@ -8,15 +8,15 @@ use automaton::*;
 
 fn main() -> io::Result<()> {
     let transition_fn = HashMap::from([
-        ((State::Zeros, '0'), State::Zeros),
-        ((State::Zeros, 'b'), State::FirstB),
-        ((State::FirstB, 'b'), State::SecondB),
-        ((State::SecondB, '1'), State::FirstOne),
-        ((State::FirstOne, '1'), State::Ones),
-        ((State::Ones, '1'), State::Ones)
+        ((State::S, '0'), State::S),
+        ((State::S, 'b'), State::A),
+        ((State::A, 'b'), State::B),
+        ((State::B, '1'), State::C),
+        ((State::C, '1'), State::D),
+        ((State::D, '1'), State::D)
         ]);
 
-    let fstates = HashSet::from([State::Ones]);
+    let fstates = HashSet::from([State::D]);
 
     let init_state = State::Zeros;
 
