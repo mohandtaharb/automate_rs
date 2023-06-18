@@ -8,5 +8,4 @@ Ce programme a été conçu dans le cadre d'un mini-projet universitaire.
 Le langage reconnu par cet automate est `L = {0^i bb 1^j / i >= 0, k > 1}`
 
 ## Equivalent python
-
-Un équivalent à ce code en Python peut être retrouvé [ici](https://github.com/mohandtaharb/automate_py)
+Un autre éxemple en Python est disponible [ici](https://github.com/mohandtaharb/automate_py)
